@@ -2,6 +2,7 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
+import axios from "axios"
 
 
 function LoginForm({ errors, touched, values }) {
@@ -112,6 +113,18 @@ const FormikLoginForm = withFormik({
 
 handleSubmit(values) {
   console.log(values);
+
+  const sentData = {data: "Hello World"};
+
+    axios.post(" https://reqres.in/api/users", sentData)
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  
+
 }
 
 })(LoginForm);
