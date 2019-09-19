@@ -74,4 +74,15 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+const FormikLoginForm = withFormik({
+
+  mapPropsToValues({ username, password }) {
+    return {
+      username: username || "",
+      password: password || ""
+    };
+  }
+  })(LoginForm);
+
+// export default LoginForm;
+export default FormikLoginForm;
