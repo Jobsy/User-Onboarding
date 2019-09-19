@@ -4,14 +4,14 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 
 
-function LoginForm() {
+function LoginForm({errors, touched}) {
  
   // const [user, setUser] = useState({ name: "", email: "", password: "", tosAccept: "", tosDecline: "" });
 
   // const handleChange = event => {
   //   setUser({ ...user, [event.target.name]: event.target.value });
   // };
-  
+
   // const handleSubmit = event => {
   //   event.preventDefault();
   //   console.log(user.name);
@@ -29,11 +29,13 @@ function LoginForm() {
       <Form>
         <label>
           Name:
-          <Field
+                    <Field
             type="text"
             name="name"
             // onChange={event => handleChange(event)}
           />
+          {touched.name && errors.name && <p>{errors.name}</p>}
+
         </label>
         <br />
         <label>
@@ -43,15 +45,17 @@ function LoginForm() {
             name="email"
             // onChange={event => handleChange(event)}
           />
+          {touched.email && errors.email && <p>{errors.email}</p>}
         </label>
         <br />
         <label>
           Password:
           <Field
-            type="text"
+            type="password"
             name="password"
             // onChange={event => handleChange(event)}
           />
+          {touched.password &&errors.password && <p>{errors.password}</p>}
         </label>
         <br />
         <label>
@@ -78,14 +82,18 @@ function LoginForm() {
 
 const FormikLoginForm = withFormik({
 
-  mapPropsToValues({ username, password }) {
+  mapPropsToValues({ name, email, password }) {
     return {
-      username: username || "",
+      name: name || "",
+      email: email || "",
       password: password || ""
     };
   },
 
   validationSchema: Yup.object().shape({
+    name: Yup.string()
+    .min(3)
+    .required(),
     email: Yup.string()
       .email()
       .required(),
