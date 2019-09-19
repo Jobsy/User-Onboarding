@@ -123,9 +123,7 @@ handleSubmit(values) {
     .catch(error => {
       console.log(error);
     })
-  
-
-}
+ }
 
 })(LoginForm);
 
