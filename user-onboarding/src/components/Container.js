@@ -1,13 +1,17 @@
-// import React, { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
+// import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios"
 
 
-function LoginForm({ errors, touched, values }) {
+// const [user, setUser] = useState([]);
 
-  // const [user, setUser] = useState({ name: "", email: "", password: "", tosAccept: "", tosDecline: "" });
+
+function LoginForm({ errors, touched, values, status }) {
+console.log("ssssss: ", status)
+  // const [user, setUser] = useState({ name: "", email: "", password: "", tos: ""});
+  const [user, setUser] = useState([]);
 
   // const handleChange = event => {
   //   setUser({ ...user, [event.target.name]: event.target.value });
@@ -18,7 +22,7 @@ function LoginForm({ errors, touched, values }) {
   //   console.log(user.name);
   //   console.log(user.email);
   //   console.log(user.password);
-  //   console.log(user.tosAccept);
+  //   console.log(user.tos);
   //   console.log(user.tosDecline);
   // };
 
@@ -67,8 +71,8 @@ function LoginForm({ errors, touched, values }) {
           <br />
         <Field
           type="checkbox"
-          name="tosAccept"
-          checked={values.tosAccept}
+          name="tos"
+          checked={values.tos}
         // onChange={event => handleChange(event)}
         />     Accept
           <br />
@@ -77,55 +81,88 @@ function LoginForm({ errors, touched, values }) {
             name="tosDecline"
             // onChange={event => handleChange(event)}
           />       Decline */}
-          {touched.tosAccept && errors.tosAccept && <p>{errors.tosAccept}</p>}
+        {touched.tos && errors.tos && <p>{errors.tos}</p>}
       </label>
       <br />
       <button>Submit!</button>
+      <label>
+        Display
+          <br />
+        <Field
+          // type="checkbox"
+          name="display"
+          
+               /> 
+      </label>
     </Form>
     // </div>
   );
 }
 
-const FormikLoginForm = withFormik({
 
-  mapPropsToValues({ name, email, password, tosAccept }) {
-    return {
-      name: name || "",
-      email: email || "",
-      password: password || "",
-      tosAccept: tosAccept || false
-    };
-  },
+// function FormikForm (){
 
-  validationSchema: Yup.object().shape({
-    name: Yup.string()
-      .min(3)
-      .required(),
-    email: Yup.string()
-      .email()
-      .required(),
-    password: Yup.string()
-      .min(6)
-      .required(),
-    tosAccept: Yup.boolean()
-    .oneOf([true], "Must accept Terms of Service to submit"),
-  }),
 
-handleSubmit(values) {
-  console.log(values);
+  const FormikLoginForm = withFormik({
+    // const [user, setUser] = useState([]);
+  
+    mapPropsToValues({ name, email, password, tos, display }) {
+      return {
+        name: name || "",
+        email: email || "",
+        password: password || "",
+        tos: tos || false,
+        display: display || []
+      };
+    },
+  
+    validationSchema: Yup.object().shape({
+      name: Yup.string()
+        .min(3)
+        .required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string()
+        .min(6)
+        .required(),
+      tos: Yup.boolean()
+        .oneOf([true], "Must accept Terms of Service to submit"),
+    }),
+  
+    handleSubmit(values, {setStatus}) {
+      console.log("vvvvv: ", values, setStatus);
+  
+      
+  
+      const sentData = {
+        data: {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          tos: values.tos,
+          // display: valu[]
+        }
+      };
+  
+  
+      axios.post(" https://reqres.in/api/users", sentData)
+        .then(response => {
+          console.log(response.data)
+          setStatus(response.data)
+          
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+  
+  })(LoginForm);
 
-  const sentData = {data: "Hello World"};
-
-    axios.post(" https://reqres.in/api/users", sentData)
-    .then(response => {
-      console.log(response.data)
-    })
-    .catch(error => {
-      console.log(error);
-    })
- }
-
-})(LoginForm);
-
+  // return(FormikLoginForm)
+  
+// }
+// console.log("kkkkkk: ", user)
 // export default LoginForm;
 export default FormikLoginForm;
+// export default FormikForm;
