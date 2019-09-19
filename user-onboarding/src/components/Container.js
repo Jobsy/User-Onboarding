@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+import React from "react";
 import { withFormik, Form, Field } from "formik";
 
 function LoginForm() {
@@ -26,7 +27,7 @@ function LoginForm() {
       <Form>
         <label>
           Name:
-          <input
+          <Field
             type="text"
             name="name"
             // onChange={event => handleChange(event)}
@@ -35,7 +36,7 @@ function LoginForm() {
         <br />
         <label>
           Email:
-          <input
+          <Field
             type="email"
             name="email"
             // onChange={event => handleChange(event)}
@@ -44,7 +45,7 @@ function LoginForm() {
         <br />
         <label>
           Password:
-          <input
+          <Field
             type="text"
             name="password"
             // onChange={event => handleChange(event)}
@@ -54,13 +55,13 @@ function LoginForm() {
         <label>
           Terms of Service:
           <br />
-          <input
+          <Field
             type="checkbox"
             name="tosAccept"
             // onChange={event => handleChange(event)}
           />     Accept
           <br />
-          <input
+          <Field
             type="checkbox"
             name="tosDecline"
             // onChange={event => handleChange(event)}
