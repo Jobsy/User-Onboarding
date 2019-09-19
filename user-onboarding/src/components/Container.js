@@ -32,6 +32,7 @@ function LoginForm({ errors, touched, values }) {
                     <Field
           type="text"
           name="name"
+          placeholder="Enter Your Full Name"
         // onChange={event => handleChange(event)}
         />
         {touched.name && errors.name && <p>{errors.name}</p>}
@@ -43,6 +44,7 @@ function LoginForm({ errors, touched, values }) {
           <Field
           type="email"
           name="email"
+          placeholder="Enter your email addres"
         // onChange={event => handleChange(event)}
         />
         {touched.email && errors.email && <p>{errors.email}</p>}
@@ -53,6 +55,7 @@ function LoginForm({ errors, touched, values }) {
           <Field
           type="password"
           name="password"
+          placeholder="Enter Your Password"
         // onChange={event => handleChange(event)}
         />
         {touched.password && errors.password && <p>{errors.password}</p>}
