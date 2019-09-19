@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { withFormik, Form, Field } from "formik";
 
 function LoginForm() {
  
-  const [user, setUser] = useState({ name: "", email: "", password: "", tosAccept: "off", tosDecline: "off" });
+  const [user, setUser] = useState({ name: "", email: "", password: "", tosAccept: "", tosDecline: "" });
 
   const handleChange = event => {
     setUser({ ...user, [event.target.name]: event.target.value });
