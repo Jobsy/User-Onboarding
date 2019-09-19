@@ -81,7 +81,19 @@ const FormikLoginForm = withFormik({
       username: username || "",
       password: password || ""
     };
-  }
+  },
+
+  validationSchema: Yup.object().shape({
+    email: Yup.string()
+      .email()
+      .required(),
+    password: Yup.string()
+      .min(6)
+      .required()
+  }),
+
+
+
   })(LoginForm);
 
 // export default LoginForm;
