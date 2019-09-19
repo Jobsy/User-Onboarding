@@ -110,7 +110,9 @@ const FormikLoginForm = withFormik({
     .oneOf([true], "Must accept Terms of Service to submit"),
   }),
 
-
+handleSubmit(values) {
+  console.log(values);
+}
 
 })(LoginForm);
 
