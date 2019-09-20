@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios"
+
+import Display from "./Display";
 
 
 // const [user, setUser] = useState([]);
 
 
 function LoginForm({ errors, touched, values, status }) {
-console.log("ssssss: ", status)
+  console.log("ssssss: ", status)
   // const [user, setUser] = useState({ name: "", email: "", password: "", tos: ""});
-  const [user, setUser] = useState([]);
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    if (status) {
+      setUsers(users.concat(status))
+    }
 
+  }, [status])
+  console.log("uuuuuuuuu: ", users)
   // const handleChange = event => {
   //   setUser({ ...user, [event.target.name]: event.target.value });
   // };
@@ -91,11 +99,16 @@ console.log("ssssss: ", status)
         <Field
           // type="checkbox"
           name="display"
-          
-               /> 
+
+        />
       </label>
+      
+        {/* {users.map((user) => ( */}
+          <Display users={users}/>
+        {/* ))} */}
+       
     </Form>
-    // </div>
+    
   );
 }
 
@@ -103,64 +116,64 @@ console.log("ssssss: ", status)
 // function FormikForm (){
 
 
-  const FormikLoginForm = withFormik({
-    // const [user, setUser] = useState([]);
-  
-    mapPropsToValues({ name, email, password, tos, display }) {
-      return {
-        name: name || "",
-        email: email || "",
-        password: password || "",
-        tos: tos || false,
-        display: display || []
-      };
-    },
-  
-    validationSchema: Yup.object().shape({
-      name: Yup.string()
-        .min(3)
-        .required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      password: Yup.string()
-        .min(6)
-        .required(),
-      tos: Yup.boolean()
-        .oneOf([true], "Must accept Terms of Service to submit"),
-    }),
-  
-    handleSubmit(values, {setStatus}) {
-      console.log("vvvvv: ", values, setStatus);
-  
-      
-  
-      const sentData = {
-        data: {
-          name: values.name,
-          email: values.email,
-          password: values.password,
-          tos: values.tos,
-          // display: valu[]
-        }
-      };
-  
-  
-      axios.post(" https://reqres.in/api/users", sentData)
-        .then(response => {
-          console.log(response.data)
-          setStatus(response.data)
-          
-        })
-        .catch(error => {
-          console.log(error);
-        })
-    }
-  
-  })(LoginForm);
+const FormikLoginForm = withFormik({
+  // const [user, setUser] = useState([]);
 
-  // return(FormikLoginForm)
-  
+  mapPropsToValues({ name, email, password, tos, display }) {
+    return {
+      name: name || "",
+      email: email || "",
+      password: password || "",
+      tos: tos || false,
+      display: display || []
+    };
+  },
+
+  validationSchema: Yup.object().shape({
+    name: Yup.string()
+      .min(3)
+      .required(),
+    email: Yup.string()
+      .email()
+      .required(),
+    password: Yup.string()
+      .min(6)
+      .required(),
+    tos: Yup.boolean()
+      .oneOf([true], "Must accept Terms of Service to submit"),
+  }),
+
+  handleSubmit(values, { setStatus }) {
+    console.log("vvvvv: ", values, setStatus);
+
+
+
+    const sentData = {
+      // data: {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      tos: values.tos,
+      // display: valu[]
+      // }
+    };
+
+
+    axios.post(" https://reqres.in/api/users", sentData)
+      .then(response => {
+        console.log(response.data)
+        setStatus(response.data)
+
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+})(LoginForm);
+
+// return(FormikLoginForm)
+
 // }
 // console.log("kkkkkk: ", user)
 // export default LoginForm;
