@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 
@@ -16,5 +17,6 @@ const Display = props => {
     </div>
   )
 };
+
 
 export default Display;
