@@ -10,7 +10,7 @@ const Display = props => {
         <>
           Name: {user.name} <br />
           Email: {user.email} <br />
-          Password: {user.password} <br />
+          Password: {user.password} <br /><br /><br />
         </>
       ))}
     </div>
