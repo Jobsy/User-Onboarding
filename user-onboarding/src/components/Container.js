@@ -72,7 +72,7 @@ function LoginForm({ errors, touched, values, status }) {
 
 const FormikLoginForm = withFormik({
 
-  mapPropsToValues({ name, email, password, tos, display }) {
+  mapPropsToValues({ name, email, password, tos }) {
     return {
       name: name || "",
       email: email || "",
@@ -95,7 +95,7 @@ const FormikLoginForm = withFormik({
       .oneOf([true], "Must accept Terms of Service to submit"),
   }),
 
-  handleSubmit(values, { setStatus }) {
+  handleSubmit(values, { resetForm, setStatus }) {
 
     const sentData = {
       // data: {
@@ -109,8 +109,8 @@ const FormikLoginForm = withFormik({
 
     axios.post(" https://reqres.in/api/users", sentData)
       .then(response => {
-        setStatus(response.data)
-
+        setStatus(response.data);
+        resetForm();
       })
       .catch(error => {
         console.log(error);
