@@ -7,9 +7,10 @@ const Display = props => {
     <div>
       <h3>Posted Users</h3>
       {props.users.map(user => (
-        <>{user.name} <br />
-          {user.email} <br />
-          {user.password} <br />
+        <>
+          Name: {user.name} <br />
+          Email: {user.email} <br />
+          Password: {user.password} <br />
         </>
       ))}
     </div>
