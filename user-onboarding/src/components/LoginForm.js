@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { withFormik, Form, Field } from "formik";
-import * as Yup from "yup";
-import axios from "axios"
+import { Form, Field } from "formik";
+// import { withFormik, Form, Field } from "formik";
+// import * as Yup from "yup";
+// import axios from "axios"
 
 import Display from "./Display";
 
@@ -70,54 +71,56 @@ function LoginForm({ errors, touched, values, status }) {
 }
 
 
-const FormikLoginForm = withFormik({
+// const FormikLoginForm = withFormik({
 
-  mapPropsToValues({ name, email, password, tos }) {
-    return {
-      name: name || "",
-      email: email || "",
-      password: password || "",
-      tos: tos || false
-    };
-  },
+//   mapPropsToValues({ name, email, password, tos }) {
+//     return {
+//       name: name || "",
+//       email: email || "",
+//       password: password || "",
+//       tos: tos || false
+//     };
+//   },
 
-  validationSchema: Yup.object().shape({
-    name: Yup.string()
-      .min(3)
-      .required(),
-    email: Yup.string()
-      .email()
-      .required(),
-    password: Yup.string()
-      .min(6)
-      .required(),
-    tos: Yup.boolean()
-      .oneOf([true], "Must accept Terms of Service to submit"),
-  }),
+//   validationSchema: Yup.object().shape({
+//     name: Yup.string()
+//       .min(3)
+//       .required(),
+//     email: Yup.string()
+//       .email()
+//       .required(),
+//     password: Yup.string()
+//       .min(6)
+//       .required(),
+//     tos: Yup.boolean()
+//       .oneOf([true], "Must accept Terms of Service to submit"),
+//   }),
 
-  handleSubmit(values, { resetForm, setStatus }) {
+//   handleSubmit(values, { resetForm, setStatus }) {
 
-    const sentData = {
-      // data: {
-      name: values.name,
-      email: values.email,
-      password: values.password,
-      tos: values.tos,
-      // display: valu[]
-      // }
-    };
+//     const sentData = {
+//       // data: {
+//       name: values.name,
+//       email: values.email,
+//       password: values.password,
+//       tos: values.tos,
+//       // display: valu[]
+//       // }
+//     };
 
-    axios.post(" https://reqres.in/api/users", sentData)
-      .then(response => {
-        setStatus(response.data);
-        resetForm();
-      })
-      .catch(error => {
-        console.log(error);
-      })
-  }
+//     axios.post(" https://reqres.in/api/users", sentData)
+//       .then(response => {
+//         setStatus(response.data);
+//         resetForm();
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       })
+//   }
 
-})(LoginForm);
+// })(LoginForm);
 
 
-export default FormikLoginForm;
+// export default FormikLoginForm;
+
+export default LoginForm;
